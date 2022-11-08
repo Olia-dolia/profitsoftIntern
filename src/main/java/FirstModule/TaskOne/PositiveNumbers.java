@@ -9,7 +9,9 @@ public class PositiveNumbers {
     }
 
     public static Integer[] arrMoreThanZero(int[] arr){
-        Integer[] arrOut = Arrays.stream(arr).filter(x -> x >= 0).boxed().toArray(Integer[]::new);
+        Integer[] arrOut = Arrays.stream(arr)
+                .filter(x -> x >= 0)
+                .boxed().toArray(Integer[]::new);
         Arrays.sort(arrOut, Collections.reverseOrder());
         return arrOut;
     }
