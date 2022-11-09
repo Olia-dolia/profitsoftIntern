@@ -1,25 +1,29 @@
 package FirstModule.TaskOne;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TopFiveTags {
     public static void main(String[] args) {
-            HashMap<String, Integer> dict = new HashMap<>();
-            String[] input = {"#one blah",
-                    "blah #one #two blah",
-                    "#one blah #three #three"};
+            Map<String, Integer> dict = new HashMap<>();
+            String[] input = {"#one bird was on the #tree in the forest",
+                    "#one or #two #birds sits on the #tree",
+                    "#one or #three birds sits on the #three #tree", "and here were a #three #men",
+                    "a #three man with #one ax", "#three stumps and #three #men remained", "#three birds left this forest"};
             Arrays.stream(input).forEach(str -> {
                 for (String tag : findTags(str)) {
                     dict.merge(tag, 1, Integer::sum);
                 }
             });
-            for (Map.Entry<String, Integer> entry : dict.entrySet()) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
-            }
+            Map<String, Integer> sortedMapDesc = dict.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                    .limit(5)
+                    .collect(Collectors
+                        .toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                (e1, e2) -> e1,
+                                LinkedHashMap::new));
+            System.out.println(sortedMapDesc);
         }
 
         private static Set<String> findTags(String str) {
