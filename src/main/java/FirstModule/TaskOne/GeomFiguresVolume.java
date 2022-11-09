@@ -1,8 +1,10 @@
 package FirstModule.TaskOne;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 interface Figures{
+    String getName();
     double volume();
 }
 
@@ -15,6 +17,11 @@ class Cube implements Figures{
 
     public void setFacet(int facet) {
         this.facet = facet;
+    }
+
+    @Override
+    public String getName() {
+        return "Cube";
     }
 
     @Override
@@ -32,6 +39,11 @@ class Sphere implements Figures{
 
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    @Override
+    public String getName() {
+        return "Sphere";
     }
 
     @Override
@@ -59,6 +71,11 @@ class Prism implements Figures{
     }
 
     @Override
+    public String getName() {
+        return "Prism";
+    }
+
+    @Override
     public double volume() {
         return this.baseArea*this.height;
     }
@@ -80,6 +97,11 @@ class Pyramid implements Figures{
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    @Override
+    public String getName() {
+        return "Pyramid";
     }
 
     @Override
@@ -110,6 +132,11 @@ class Cylinder implements Figures{
 
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    @Override
+    public String getName() {
+        return "Cylinder";
     }
 
     @Override
@@ -146,6 +173,11 @@ class Cone implements Figures{
     }
 
     @Override
+    public String getName() {
+        return "Cone";
+    }
+
+    @Override
     public double volume() {
         if (baseArea != 0)
             return this.baseArea*this.height/3.0;
@@ -155,15 +187,20 @@ class Cone implements Figures{
 }
 
 public class GeomFiguresVolume {
-        public static List<Double> geomFiguresVolume(List<Figures> figuresList){
-            List<Double> volumesList = new ArrayList<>();
-            int listSize = 0;
-            while (listSize < figuresList.size()){
-                volumesList.add(figuresList.get(listSize).volume());
-                listSize++;
-            }
-            volumesList.sort(Collections.reverseOrder());
-        return volumesList;
+    public static Map<String, Double> geomFiguresVolume(List<Figures> figuresList){
+        Map<String, Double> volumes = new HashMap<>();
+        int listSize = 0;
+        while (listSize < figuresList.size()){
+            volumes.put(figuresList.get(listSize).getName(), figuresList.get(listSize).volume());
+            listSize++;
+        }
+        return volumes.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors
+                        .toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                (e1, e2) -> e1,
+                                LinkedHashMap::new));
     }
     public static void main(String[] args) {
         Figures cube = new Cube(12);
@@ -179,9 +216,6 @@ public class GeomFiguresVolume {
         figuresList.add(cylinder);
         figuresList.add(cone);
         figuresList.add(sphere);
-        List<Double> volumesList = geomFiguresVolume(figuresList);
-        for (double x: volumesList) {
-            System.out.println(x);
-        }
+        System.out.println(geomFiguresVolume(figuresList));
     }
 }

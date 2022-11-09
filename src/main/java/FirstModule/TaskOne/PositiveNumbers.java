@@ -16,7 +16,7 @@ public class PositiveNumbers {
         return arrOut;
     }
     public static void main(String[] args) {
-        int[] arrInput = new int[20];
+        /*int[] arrInput = new int[20];
         System.out.println("Input data: ");
         for (int i = 0; i < arrInput.length; i++) {
             arrInput[i] = getRandomNumber();
@@ -24,6 +24,6 @@ public class PositiveNumbers {
         }
         System.out.println();
         System.out.println("Output data: ");
-        System.out.println(Arrays.toString(arrMoreThanZero(arrInput)));
+        System.out.println(Arrays.toString(arrMoreThanZero(arrInput)));*/
     }
 }
