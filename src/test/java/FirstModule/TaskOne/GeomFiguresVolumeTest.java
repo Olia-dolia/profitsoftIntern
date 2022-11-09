@@ -1,6 +1,5 @@
 package FirstModule.TaskOne;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,6 +46,6 @@ public class GeomFiguresVolumeTest {
                         .toMap(Map.Entry::getKey, Map.Entry::getValue,
                                 (e1, e2) -> e1,
                                 LinkedHashMap::new));
-        Assert.assertEquals(figuresListExpected, figuresList);
+        assertEquals(figuresListExpected, figuresList);
     }
 }
