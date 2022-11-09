@@ -35,7 +35,7 @@ public class TopFiveTags {
                     .limit(5)
                     .collect(Collectors
                             .toMap(Map.Entry::getKey, Map.Entry::getValue,
-                                    (e1, e2) -> e1,
+                                    (previousVal, newVal) -> previousVal,
                                     LinkedHashMap::new));
         }
     }
