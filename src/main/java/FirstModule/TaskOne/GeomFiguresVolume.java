@@ -203,19 +203,6 @@ public class GeomFiguresVolume {
                                 LinkedHashMap::new));
     }
     public static void main(String[] args) {
-        Figures cube = new Cube(12);
-        Figures prism = new Prism(12, 3);
-        Figures pyramid = new Pyramid(13, 4);
-        Figures cylinder = new Cylinder(0, 8, 4);
-        Figures cone = new Cone(12, 6,3);
-        Figures sphere = new Sphere(12);
-        List<Figures> figuresList= new ArrayList<>();
-        figuresList.add(cube);
-        figuresList.add(prism);
-        figuresList.add(pyramid);
-        figuresList.add(cylinder);
-        figuresList.add(cone);
-        figuresList.add(sphere);
-        System.out.println(geomFiguresVolume(figuresList));
+        //System.out.println(geomFiguresVolume(figuresList));
     }
 }

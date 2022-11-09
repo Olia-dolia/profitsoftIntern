@@ -24,13 +24,19 @@ public class TopFiveTags {
                 dict.merge(tag, 1, Integer::sum);
             }
         });
-        return dict.entrySet()
-                .stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .limit(5)
-                .collect(Collectors
-                        .toMap(Map.Entry::getKey, Map.Entry::getValue,
-                                (e1, e2) -> e1,
-                                LinkedHashMap::new));
+
+        if(dict.size() < 5){
+            System.out.println("Your text has less than five tags!");
+            return dict;
+        } else{
+                return dict.entrySet()
+                        .stream()
+                        .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                        .limit(5)
+                        .collect(Collectors
+                                .toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                        (e1, e2) -> e1,
+                                        LinkedHashMap::new));
+        }
     }
 }
