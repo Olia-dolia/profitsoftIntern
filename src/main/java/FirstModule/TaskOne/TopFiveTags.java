@@ -14,11 +14,13 @@ public class TopFiveTags {
     }
 
     public static Map<String, Integer> printTopFiveTags(String[] input) {
-        HashMap<String, Integer> dict = new HashMap<>();
+        Map<String, Integer> dict = new HashMap<>();
+
         Function<String, Set<String>> findTags = (str) ->
                 Arrays.stream(str.split(" "))
                         .filter(in -> in.matches("#.+"))
                         .collect(Collectors.toSet());
+
         Arrays.stream(input).forEach(str -> {
             for (String tag : findTags.apply(str)) {
                 dict.merge(tag, 1, Integer::sum);
@@ -28,15 +30,15 @@ public class TopFiveTags {
         if (dict.size() < 5) {
             System.out.println("Your text has less than five tags!");
             return dict;
-        } else {
-            return dict.entrySet()
-                    .stream()
-                    .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                    .limit(5)
-                    .collect(Collectors
-                            .toMap(Map.Entry::getKey, Map.Entry::getValue,
-                                    (previousVal, newVal) -> previousVal,
-                                    LinkedHashMap::new));
         }
+        return dict.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .limit(5)
+                .collect(Collectors
+                        .toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                (previousVal, newVal) -> previousVal,
+                                LinkedHashMap::new));
+
     }
 }
