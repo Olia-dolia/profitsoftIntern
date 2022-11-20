@@ -9,26 +9,28 @@ import java.util.regex.Pattern;
 public class CustomXMLParser {
 
     public static void main(String[] args) {
-        String inputFileName = "persons.xml";
+        /*String inputFileName = "persons.xml";
         try {
             Scanner scanner = new Scanner(getFileFromResource(inputFileName));
             while (scanner.hasNextLine()){
-                concatFullName(scanner.nextLine());
-                /*function concatName(scanner)
-                *   reg = [A-Z](for name)
-                *   reg = [A-Z](for surname)
-                *   if(scanner.findInLine("name"))
-                *       String name = scanner.findInLine(regN).concat(" " + scanner.findInLine(regS));
-                *       write(name);
-                *    else
-                *        write(scanner)
-                * */
+                Pattern p = Pattern.compile("(name|surname)");
+                Matcher match = p.matcher(scanner.nextLine());
+                if (match.find()) {
+                    concatFullName(scanner.nextLine());
+                }
             }
             scanner.close();
         } catch (Exception e){
             e.printStackTrace();
+        }*/
+        String[] str = new String[]{
+                " <persons>", " <person name=\"Іван\" surname=\"Котляревський\" birthDate=\"09.09.1769\" />",
+                "<person surname=\"Шевченко\" name=\"Тарас\" birthDate=\"09.03.1814\" />", "    <person name=\"Леся\"\n" +
+                "            surname=\"Українка\"\n" +
+                "            birthDate=\"13.02.1871\" />"};
+        for (String s: str) {
+            concatFullName(s);
         }
-
     }
 
     private static BufferedInputStream getFileFromResource(String fileName) {
@@ -43,23 +45,15 @@ public class CustomXMLParser {
         }
     }
 
-    private static String concatFullName(String input){
-        Pattern p = Pattern.compile("(name|surname)");
-        //Pattern p2 = Pattern.compile("(?:\")([^\"]+)(?:\")");
-        //StringBuilder stringBuilder = new StringBuilder(input);
-        Matcher match = p.matcher(input);
-        String surname = "";
-        String name = "";
-        if (match.find()){
-         name = Arrays.stream(input.split(" "))
-                  .filter(in -> in.matches("(?<=(name=))(?:\")([^\"]+)(?:\")|(?<=(name = ))(?:\")([^\"]+)(?:\")"))
-                  .toString();
-         surname = Arrays.stream(input.split(" "))
-                  .filter(in -> in.matches("(?<=(surname=))(?:\")([^\"]+)(?:\")|(?<=(surname = ))(?:\")([^\"]+)(?:\")"))
-                  .toString();
-            System.out.println(name+ "\n" + surname);
-        }
-        return input;
-    }
 
+    private static void concatFullName(String input){
+        String fullName = "";
+        String name = "";
+        Pattern p = Pattern.compile("(?<=(name=))(?:\")([^\"]+)(?:\")|(?<=(name = ))(?:\")([^\"]+)(?:\")");
+        Matcher matcher = p.matcher(input);
+        while (matcher.find()){
+                name += matcher.group(2).concat(" ");
+        }
+        System.out.println(name.trim());
+    }
 }
