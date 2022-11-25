@@ -1,0 +1,36 @@
+[{
+  "date_time": "2020-06-05 15:39:03",
+  "first_name": "Ivan1",
+  "last_name": "Ivanov",
+  "type": "SPEEDING",
+  "fine_amount": 340.00
+},
+  {
+    "date_time": "2020-11-05 16:40:03",
+    "first_name": "Ivan2",
+    "last_name": "Ivanov",
+    "type": "STOP SIGN",
+    "fine_amount": 240.00
+  },
+  {
+    "date_time": "2020-12-05 16:40:03",
+    "first_name": "Ivan3",
+    "last_name": "Ivanov",
+    "type": "STOP RULES",
+    "fine_amount": 240.00
+  },
+  {
+    "date_time": "2020-04-05 16:40:03",
+    "first_name": "Ivan4",
+    "last_name": "Ivanov",
+    "type": "STOP RULES",
+    "fine_amount": 255.00
+  },
+  {
+    "date_time": "2020-04-05 16:40:03",
+    "first_name": "Ivan5",
+    "last_name": "Ivanov",
+    "type": "DRIVING IN A DRUNKER STATE",
+    "fine_amount": 755.00
+  }
+]

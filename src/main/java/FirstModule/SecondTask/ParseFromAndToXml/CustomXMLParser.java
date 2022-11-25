@@ -9,28 +9,30 @@ import java.util.regex.Pattern;
 public class CustomXMLParser {
 
     public static void main(String[] args) {
-        /*String inputFileName = "persons.xml";
+        String inputFileName = "persons.xml";
         try {
             Scanner scanner = new Scanner(getFileFromResource(inputFileName));
             while (scanner.hasNextLine()){
+                String input = scanner.nextLine();
                 Pattern p = Pattern.compile("(name|surname)");
-                Matcher match = p.matcher(scanner.nextLine());
+                Matcher match = p.matcher(input);
                 if (match.find()) {
-                    concatFullName(scanner.nextLine());
+                    concatFullName(input, scanner);
                 }
             }
             scanner.close();
         } catch (Exception e){
             e.printStackTrace();
-        }*/
-        String[] str = new String[]{
+        }
+        /*String[] str = new String[]{
                 " <persons>", " <person name=\"Іван\" surname=\"Котляревський\" birthDate=\"09.09.1769\" />",
                 "<person surname=\"Шевченко\" name=\"Тарас\" birthDate=\"09.03.1814\" />", "    <person name=\"Леся\"\n" +
                 "            surname=\"Українка\"\n" +
                 "            birthDate=\"13.02.1871\" />"};
         for (String s: str) {
             concatFullName(s);
-        }
+        }*/
+
     }
 
     private static BufferedInputStream getFileFromResource(String fileName) {
@@ -46,13 +48,18 @@ public class CustomXMLParser {
     }
 
 
-    private static void concatFullName(String input){
-        String fullName = "";
+    private static void concatFullName(String input, Scanner sc){
+        int count = 0;
         String name = "";
         Pattern p = Pattern.compile("(?<=(name=))(?:\")([^\"]+)(?:\")|(?<=(name = ))(?:\")([^\"]+)(?:\")");
         Matcher matcher = p.matcher(input);
         while (matcher.find()){
                 name += matcher.group(2).concat(" ");
+                ++count;
+        }
+        if(count<2){
+            String concatLines = input.concat(" " + sc.nextLine());
+            concatFullName(concatLines, sc);
         }
         System.out.println(name.trim());
     }
